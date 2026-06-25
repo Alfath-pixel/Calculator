@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator</title>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    .kalkulator {
+      background: #000;
+      padding: 20px;
+      border-radius: 20px;
+      width: 260px;
+    }
+
+    .layar {
+      background: #111;
+      color: white;
+      font-size: 32px;
+      text-align: right;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+
+    .tombol {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 15px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .angka {
+      background: #333;
+      color: white;
+    }
+
+    .operator {
+      background: orange;
+      color: white;
+    }
+
+    .hapus {
+      background: #777;
+      color: black;
+    }
+
+    .nol {
+      grid-column: span 2;
+      border-radius: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="kalkulator">
+    <div class="layar" id="layar">0</div>
+
+    <div class="tombol">
+      <button class="hapus" onclick="clearLayar()">C</button>
+      <button class="hapus" onclick="hapusSatu()">⌫</button>
+      <button class="hapus" onclick="tambahOperator('/')">÷</button>
+      <button class="operator" onclick="tambahOperator('*')">×</button>
+
+      <button class="angka" onclick="tambahAngka('7')">7</button>
+      <button class="angka" onclick="tambahAngka('8')">8</button>
+      <button class="angka" onclick="tambahAngka('9')">9</button>
+      <button class="operator" onclick="tambahOperator('-')">−</button>
+
+      <button class="angka" onclick="tambahAngka('4')">4</button>
+      <button class="angka" onclick="tambahAngka('5')">5</button>
+      <button class="angka" onclick="tambahAngka('6')">6</button>
+      <button class="operator" onclick="tambahOperator('+')">+</button>
+
+      <button class="angka" onclick="tambahAngka('1')">1</button>
+      <button class="angka" onclick="tambahAngka('2')">2</button>
+      <button class="angka" onclick="tambahAngka('3')">3</button>
+      <button class="operator" onclick="hitung()">=</button>
+
+      <button class="angka nol" onclick="tambahAngka('0')">0</button>
+      <button class="angka" onclick="tambahAngka('.')">.</button>
+    </div>
+  </div>
+
+  <script>
+    let layar = document.getElementById("layar");
+
+    function tambahAngka(angka) {
+      if (layar.innerHTML === "0") {
+        layar.innerHTML = angka;
+      } else {
+        layar.innerHTML += angka;
+      }
+    }
+
+    function tambahOperator(operator) {
+      layar.innerHTML += operator;
+    }
+
+    function clearLayar() {
+      layar.innerHTML = "0";
+    }
+
+    function hapusSatu() {
+      layar.innerHTML = Math.max(0, layar.innerHTML.length) ? layar.innerHTML.slice(0, -1) : "0";
+      if (layar.innerHTML === "") {
+        layar.innerHTML = "0";
+      }
+    }
+
+    function hitung() {
+      try {
+        layar.innerHTML = eval(layar.innerHTML);
+      } catch (e) {
+        layar.innerHTML = "Error";
+      }
+    }
+  </script>
+
+</body>
+</html>
